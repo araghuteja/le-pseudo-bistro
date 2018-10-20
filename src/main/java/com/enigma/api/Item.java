@@ -64,4 +64,9 @@ public class Item {
     public int hashCode() {
         return Objects.hash(id, code);
     }
+
+    @Override
+    public String toString() {
+        return "Item: ID= " + id + " Code= " + code+ " Name= " + name;
+    }
 }

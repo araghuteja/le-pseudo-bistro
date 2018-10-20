@@ -123,7 +123,7 @@
         </plugins>
     </build>
 
-    <!--<reporting>
+    <reporting>
         <plugins>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -138,5 +138,5 @@
                 <version>2.10.3</version>
             </plugin>
         </plugins>
-    </reporting>-->
+    </reporting>
 </project>
