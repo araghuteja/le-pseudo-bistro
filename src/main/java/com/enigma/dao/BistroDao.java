@@ -4,6 +4,7 @@ import com.enigma.api.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BistroDao {
     static List<Item> items = new ArrayList<>();
@@ -28,7 +29,10 @@ public class BistroDao {
     }
 
     public Item getItem(int id) {
-        return BistroDao.items.stream().filter(item -> item.getId() == id).findAny().get();
+        Optional<Item> itemLookup = BistroDao.items.stream().filter(item -> item.getId() == id).findAny();
+        if (itemLookup.isPresent())
+            return itemLookup.get();
+        return null;
     }
 
 }

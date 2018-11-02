@@ -1,0 +1,15 @@
+logging:
+  level: INFO
+  loggers:
+    com.enigma: DEBUG
+
+server:
+  applicationConnectors:
+  - type: http
+    port: 9090
+  adminConnectors:
+  - type: http
+    port: 9091
+
+swagger:
+  resourcePackage: com.enigma.controller
