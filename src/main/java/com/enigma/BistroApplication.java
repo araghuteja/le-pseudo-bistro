@@ -2,6 +2,7 @@ package com.enigma;
 
 import com.enigma.config.BistroConfiguration;
 import com.enigma.controller.BistroController;
+import com.enigma.keepalive.KeepAlive;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -14,9 +15,14 @@ import org.slf4j.LoggerFactory;
 public class BistroApplication extends Application<BistroConfiguration> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BistroApplication.class);
+    private static String url = "";
 
     public static void main(final String[] args) throws Exception {
         new BistroApplication().run(args);
+
+        // Adding logic to ping every 10 minutes after 7AM IST
+        KeepAlive ka = new KeepAlive(url);
+        ka.pingMe();
     }
 
     @Override
@@ -44,6 +50,8 @@ public class BistroApplication extends Application<BistroConfiguration> {
         // TODO: implement application
         LOGGER.info("Registering REST resources");
         environment.jersey().register(new BistroController());
+
+        BistroApplication.url = configuration.url;
     }
 
 }

@@ -2,6 +2,11 @@ logging:
   level: INFO
   loggers:
     com.enigma: DEBUG
+  appenders:
+  - type: console
+    threshold: INFO
+    target: stdout
+    timeZone: IST
 
 server:
   type: simple
@@ -16,3 +21,5 @@ server:
 swagger:
   resourcePackage: com.enigma.controller
   schemes: ["https", "http"]
+
+keepalive: "http://localhost:9090/bistro/item/5"

@@ -10,4 +10,7 @@ public class BistroConfiguration extends Configuration {
     @JsonProperty("swagger")
     public SwaggerBundleConfiguration swaggerBundleConfiguration;
 
+    @JsonProperty("keepalive")
+    public String url;
+
 }
