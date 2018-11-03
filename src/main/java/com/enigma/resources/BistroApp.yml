@@ -4,12 +4,14 @@ logging:
     com.enigma: DEBUG
 
 server:
-  applicationConnectors:
-  - type: http
+  type: simple
+  applicationContextPath: /
+  connector:
+    type: http
     port: 9090
-  adminConnectors:
-  - type: http
-    port: 9091
+#  adminConnectors:     Heroku works only on a single port
+#  - type: http
+#    port: 9091
 
 swagger:
   resourcePackage: com.enigma.controller
