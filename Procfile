@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Ddw.server.connector.port=$PORT -Ddw.server.adminConnectors.port=$PORT -jar target/le-pseudo-bistro-1.0-SNAPSHOT.jar server src/main/java/com/enigma/resources/BistroApp.yml
+web: java $JAVA_OPTS -Ddw.server.connector.port=$PORT -jar target/le-pseudo-bistro-1.0-SNAPSHOT.jar server src/main/java/com/enigma/resources/BistroApp.yml
