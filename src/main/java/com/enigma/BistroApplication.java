@@ -1,9 +1,15 @@
 package com.enigma;
 
+import com.enigma.api.Item;
 import com.enigma.config.BistroConfiguration;
 import com.enigma.controller.BistroController;
+import com.enigma.dao.ItemDao;
 import com.enigma.keepalive.KeepAlive;
+import com.enigma.service.BistroService;
 import io.dropwizard.Application;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -16,6 +22,13 @@ public class BistroApplication extends Application<BistroConfiguration> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BistroApplication.class);
     private static String url = "";
+
+    private final HibernateBundle<BistroConfiguration> hibernate = new HibernateBundle<BistroConfiguration>(Item.class) {
+        @Override
+        public DataSourceFactory getDataSourceFactory(BistroConfiguration configuration) {
+            return configuration.getDataSourceFactory();
+        }
+    };
 
     public static void main(final String[] args) throws Exception {
         new BistroApplication().run(args);
@@ -42,16 +55,29 @@ public class BistroApplication extends Application<BistroConfiguration> {
             }
         });
 
+        bootstrap.addBundle(new MigrationsBundle<BistroConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(BistroConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
+
+        bootstrap.addBundle(hibernate);
+
     }
 
     @Override
     public void run(final BistroConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
-        LOGGER.info("Registering REST resources");
-        environment.jersey().register(new BistroController());
 
         BistroApplication.url = configuration.url;
+
+        // TODO: implement application
+        LOGGER.info("Registering REST resources");
+        final ItemDao dao = new ItemDao(hibernate.getSessionFactory());
+        final BistroService service = new BistroService(dao);
+
+        environment.jersey().register(new BistroController(service));
     }
 
 }

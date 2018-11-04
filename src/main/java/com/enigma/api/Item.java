@@ -2,14 +2,26 @@ package com.enigma.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "item")
+@NamedQueries({
+        @NamedQuery(name = "com.enigma.api.findAll",
+                query = "select i from Item i")
+})
 public class Item {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "code")
     private String code;
 
+    @Column(name = "name")
     private String name;
 
     public Item() {
