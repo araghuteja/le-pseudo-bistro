@@ -5,7 +5,7 @@ To start the application, build and run:
 >`java -jar target/le-pseudo-bistro-1.0-SNAPSHOT.jar server src/main/java/com/enigma/resources/BistroApp.yml`
 
 To reset H2 DB, delete `bistro.*.db` files and run the following cmd:
->`java -jar target/le-pseudo-bistro-1.0-SNAPSHOT.jar db migrate src\main\java\com\enigma\resources\BistroApp.yml`
+>`java -jar target/le-pseudo-bistro-1.0-SNAPSHOT.jar db migrate src/main/java/com/enigma/resources/BistroApp.yml`
 
 You can find Swagger UI at [http://localhost:9090/swagger][swagger].
                            
